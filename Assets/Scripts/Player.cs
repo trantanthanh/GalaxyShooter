@@ -24,6 +24,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CalculateMovement();
+    }
+
+    private void CalculateMovement()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             isMovingByMouse = true;
@@ -60,7 +65,15 @@ public class Player : MonoBehaviour
             isMovingByMouse = false;
         }
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, paddingLeft, paddingRight),
+        if (transform.position.x > paddingRight)
+        {
+            transform.position = new Vector3(paddingLeft, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x < paddingLeft)
+        {
+            transform.position = new Vector3(paddingRight, transform.position.y, transform.position.z);
+        }
+        transform.position = new Vector3(transform.position.x,
                                         Mathf.Clamp(transform.position.y, paddingBottom, paddingTop),
                                         transform.position.z);
     }
