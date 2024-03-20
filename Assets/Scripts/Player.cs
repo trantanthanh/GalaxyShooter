@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField] float speedMove = 10f;
     float horizontalInput;
     float verticalInput;
+
+    bool isMovingByMouse = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +18,37 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        if (Input.GetMouseButtonDown(0))
+        {
+            isMovingByMouse = true;
+        }
+        else
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.right * horizontalInput * speedMove * Time.deltaTime);
-        transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
+            transform.Translate(Vector3.right * horizontalInput * speedMove * Time.deltaTime);
+            transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
+        }
+
+        Vector3 deltaMove;
+        if (isMovingByMouse && Input.GetMouseButton(0))
+        {
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition.z = transform.position.z;//Keep position z
+            Vector3 moveDistance = targetPosition - transform.position;
+            Vector3 moveDirection = moveDistance.normalized;
+            deltaMove = moveDirection * speedMove * Time.deltaTime;
+            if (deltaMove.magnitude > moveDistance.magnitude)
+            {
+                deltaMove = moveDistance;
+            }
+            transform.position = transform.position + deltaMove;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isMovingByMouse = false;
+        }
     }
 }
