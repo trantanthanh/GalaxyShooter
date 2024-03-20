@@ -242,6 +242,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedMove: 10
+  paddingTop: 0
+  paddingBottom: -4
+  paddingLeft: -9.23
+  paddingRight: 9.23
 --- !u!1 &857052418
 GameObject:
   m_ObjectHideFlags: 0

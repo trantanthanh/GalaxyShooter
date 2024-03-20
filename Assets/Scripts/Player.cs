@@ -5,6 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float speedMove = 10f;
+
+    [Header("Boundary")]
+    [SerializeField] float paddingTop;
+    [SerializeField] float paddingBottom;
+    [SerializeField] float paddingLeft;
+    [SerializeField] float paddingRight;
     float horizontalInput;
     float verticalInput;
 
@@ -31,6 +37,7 @@ public class Player : MonoBehaviour
             //transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
             Vector3 direction = new Vector3(horizontalInput, verticalInput, transform.position.z);
             transform.Translate(direction * speedMove * Time.deltaTime);
+
         }
 
         Vector3 deltaMove;
@@ -52,5 +59,9 @@ public class Player : MonoBehaviour
         {
             isMovingByMouse = false;
         }
+
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, paddingLeft, paddingRight),
+                                        Mathf.Clamp(transform.position.y, paddingBottom, paddingTop),
+                                        transform.position.z);
     }
 }
