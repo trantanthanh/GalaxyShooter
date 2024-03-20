@@ -27,8 +27,10 @@ public class Player : MonoBehaviour
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
 
-            transform.Translate(Vector3.right * horizontalInput * speedMove * Time.deltaTime);
-            transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
+            //transform.Translate(Vector3.right * horizontalInput * speedMove * Time.deltaTime);
+            //transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
+            Vector3 direction = new Vector3(horizontalInput, verticalInput, transform.position.z);
+            transform.Translate(direction * speedMove * Time.deltaTime);
         }
 
         Vector3 deltaMove;
