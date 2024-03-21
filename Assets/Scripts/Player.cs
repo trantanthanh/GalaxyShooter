@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +14,37 @@ public class Player : MonoBehaviour
     [SerializeField] float paddingRight;
     float horizontalInput;
     float verticalInput;
-
     bool isMovingByMouse = false;
+
+    ObjectPool pool;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Vector3.zero;
+        pool = FindObjectOfType<ObjectPool>();
     }
 
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
+        Firing();
+    }
+
+    private void Firing()
+    {
+        if (pool != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GameObject laser = pool.GetActiveLaserInPool();
+                if (laser != null)
+                {
+                    laser.transform.position = transform.position;
+                }
+                laser.SetActive(true);
+            }
+        }
     }
 
     private void CalculateMovement()
@@ -35,6 +55,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            //Moving by keyboard
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
 
@@ -65,6 +86,7 @@ public class Player : MonoBehaviour
             isMovingByMouse = false;
         }
 
+        //Check boundary
         if (transform.position.x > paddingRight)
         {
             transform.position = new Vector3(paddingLeft, transform.position.y, transform.position.z);
