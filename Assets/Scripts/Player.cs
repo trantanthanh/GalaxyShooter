@@ -20,12 +20,12 @@ public class Player : MonoBehaviour
     bool isMovingByMouse = false;
     bool isFiring = false;
 
-    ObjectPool pool;
+    ObjectPool pools;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Vector3.zero;
-        pool = FindObjectOfType<ObjectPool>();
+        pools = FindObjectOfType<ObjectPool>();
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
     private void Firing()
     {
-        if (pool != null)
+        if (pools != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
             if (isFiring)
             {
-                GameObject laser = pool.GetActiveLaserInPool();
+                GameObject laser = pools.GetActiveInPool(ObjectPool.PoolsName.LASER);
                 if (laser != null && Time.time >= nextFire)
                 {
                     nextFire = Time.time + fireRate;
