@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] float fireRate = 0.5f;
     float nextFire = 0.0f;
     [SerializeField] Vector3 fireOffset;
+    [SerializeField] int lives = 3;
 
     [Header("Boundary")]
     [SerializeField] float paddingTop;
@@ -113,5 +114,19 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(transform.position.x,
                                         Mathf.Clamp(transform.position.y, paddingBottom, paddingTop),
                                         transform.position.z);
+    }
+
+    public void Damage()
+    {
+        --lives;
+        if (lives < 1)
+        {
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
     }
 }

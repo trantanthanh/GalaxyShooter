@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
     private void CreatPools()
     {
         PoolsName[] arrayNames = (PoolsName[])Enum.GetValues(typeof(PoolsName));
-        for (int i = 0; i < arrayNames.Length; ++i)
+        for (int i = 0; i < arrayNames.Length; i++)
         {
             pools.Add(arrayNames[i], new List<GameObject>());
         }
@@ -37,7 +37,10 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetActiveInPool(PoolsName name)
     {
-        if (!pools.ContainsKey(name)) return null;
+        if (!pools.ContainsKey(name))
+        {
+            return null;
+        }
         int poolLimit = 0;
         List<GameObject> pool = pools[name];
         GameObject prefab = null;

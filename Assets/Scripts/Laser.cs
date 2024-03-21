@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Laser : MonoBehaviour
@@ -32,5 +33,14 @@ public class Laser : MonoBehaviour
     private void Moving()
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,10 +12,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] float rightBoundPos = 7f;
     [SerializeField] float topBoundPos = 8f;
 
+    Player player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = FindObjectOfType<Player>();
     }
 
     void OnEnable()
@@ -39,8 +42,18 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < -4f)
         {
-            RandomPosSpawn();
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (player != null)
+            {
+                player.Damage();
+            }
         }
     }
 }
