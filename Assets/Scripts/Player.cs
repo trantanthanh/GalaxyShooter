@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
 
     private void Firing()
     {
-        nextFire -= Time.deltaTime;
         if (pool != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -48,9 +47,9 @@ public class Player : MonoBehaviour
             if (isFiring)
             {
                 GameObject laser = pool.GetActiveLaserInPool();
-                if (laser != null && nextFire <= 0)
+                if (laser != null && Time.time >= nextFire)
                 {
-                    nextFire = fireRate;
+                    nextFire = Time.time + fireRate;
                     laser.transform.position = transform.position + fireOffset;
                     laser.SetActive(true);
                 }
