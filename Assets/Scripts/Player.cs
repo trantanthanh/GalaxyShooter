@@ -6,6 +6,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float speedMove = 10f;
+    [SerializeField] float fireRate = 0.5f;
+    float nextFire = 0.0f;
+    [SerializeField] Vector3 fireOffset;
 
     [Header("Boundary")]
     [SerializeField] float paddingTop;
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     bool isMovingByMouse = false;
+    bool isFiring = false;
 
     ObjectPool pool;
     // Start is called before the first frame update
@@ -33,16 +37,28 @@ public class Player : MonoBehaviour
 
     private void Firing()
     {
+        nextFire -= Time.deltaTime;
         if (pool != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                isFiring = true;
+            }
+
+            if (isFiring)
+            {
                 GameObject laser = pool.GetActiveLaserInPool();
-                if (laser != null)
+                if (laser != null && nextFire <= 0)
                 {
-                    laser.transform.position = transform.position;
+                    nextFire = fireRate;
+                    laser.transform.position = transform.position + fireOffset;
+                    laser.SetActive(true);
                 }
-                laser.SetActive(true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                isFiring = false;
             }
         }
     }
