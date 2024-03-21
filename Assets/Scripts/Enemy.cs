@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            gameObject.SetActive(false);
             if (player != null)
             {
                 player.Damage();

@@ -22,11 +22,13 @@ public class Player : MonoBehaviour
     bool isFiring = false;
 
     ObjectPool pools;
+    SpawnManager spawnManager;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Vector3.zero;
         pools = FindObjectOfType<ObjectPool>();
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -127,6 +129,7 @@ public class Player : MonoBehaviour
 
     private void Death()
     {
+        spawnManager.OnPlayerDeath();
         Destroy(gameObject);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] float spawnInterval = 3f;
+    bool _stopSpawning = false;
     ObjectPool pools;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        while (true)
+        while (!_stopSpawning)
         {
             GameObject enemy = pools.GetActiveInPool(ObjectPool.PoolsName.ENEMY);
             if (enemy != null)
@@ -30,5 +31,10 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 }
