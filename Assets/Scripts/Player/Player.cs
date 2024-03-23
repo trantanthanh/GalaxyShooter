@@ -99,6 +99,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isMovingByMouse = true;
+            isFiring = true;
         }
         else
         {
@@ -131,6 +132,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isMovingByMouse = false;
+            isFiring = false;
         }
 
         //Check boundary
