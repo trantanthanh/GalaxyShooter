@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float speedMove = 10f;
-    [SerializeField] float speedPowerUpMove = 20;
+    [SerializeField] float speed = 10f;
+    [SerializeField] float speedMultiplier = 2f;
     [SerializeField] float fireRate = 0.5f;
     float nextFire = 0.0f;
     [SerializeField] Vector3 fireOffset;
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
             //transform.Translate(Vector3.right * horizontalInput * speedMove * Time.deltaTime);
             //transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
             Vector3 direction = new Vector3(horizontalInput, verticalInput, transform.position.z);
-            transform.Translate(direction * (isSpeedUpActive ? speedPowerUpMove : speedMove) * Time.deltaTime);
+            transform.Translate(direction * speed * Time.deltaTime);
 
         }
 
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
             targetPosition.z = transform.position.z;//Keep position z
             Vector3 moveDistance = targetPosition - transform.position;
             Vector3 moveDirection = moveDistance.normalized;
-            deltaMove = moveDirection * (isSpeedUpActive ? speedPowerUpMove : speedMove) * Time.deltaTime;
+            deltaMove = moveDirection * speed * Time.deltaTime;
             if (deltaMove.magnitude > moveDistance.magnitude)
             {
                 deltaMove = moveDistance;
@@ -204,6 +204,7 @@ public class Player : MonoBehaviour
     public void ActiveSpeedUp()
     {
         isSpeedUpActive = true;
+        speed *= speedMultiplier;
         StartCoroutine(CountDownDeactiveSpeedUp());
     }
 
@@ -212,6 +213,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(timerSpeedUpEffect);
         spawnManager.InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.SPEED_UP);
         isSpeedUpActive = false;
+        speed /= speedMultiplier;
     }
 
     public void ActiveShield()
