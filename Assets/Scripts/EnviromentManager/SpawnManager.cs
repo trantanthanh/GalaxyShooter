@@ -34,6 +34,8 @@ public class SpawnManager : MonoBehaviour
 
     private void CheckSpawnPowerUp()
     {
+        if (_stopSpawning) return;
+
         if (!player.IsTripleShotActive && Time.time >= nextSpawnPowerUp)
         {
             nextSpawnPowerUp = Time.time + timeSpentToSpawnPowerUp;
