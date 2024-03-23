@@ -506,6 +506,14 @@ PrefabInstance:
       propertyPath: enemyPrefab
       value: 
       objectReference: {fileID: 4705968908113251417, guid: 79f82d943455ded4d9ccb1ebdb73dfc0, type: 3}
+    - target: {fileID: 7774943899377012699, guid: 918e469c3829efb4d9a36d8ce98b6699, type: 3}
+      propertyPath: laserPoolSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774943899377012699, guid: 918e469c3829efb4d9a36d8ce98b6699, type: 3}
+      propertyPath: tripleLaserPrefab
+      value: 
+      objectReference: {fileID: 564383485897636031, guid: ca7e4914e6d4eb84f9a022120c60db7d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -567,6 +575,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5180853991746959081, guid: 2b47463ce1c20444cbdbb8eebe80bad2, type: 3}
+      propertyPath: tripleLaserPrefab
+      value: 
+      objectReference: {fileID: 564383485897636031, guid: ca7e4914e6d4eb84f9a022120c60db7d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

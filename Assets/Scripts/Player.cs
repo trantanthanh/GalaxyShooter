@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     bool isMovingByMouse = false;
     bool isFiring = false;
 
+    bool isTripleShotActive = !false;
+    [SerializeField] GameObject tripleLaserPrefab;
+
     ObjectPool pools;
     SpawnManager spawnManager;
     // Start is called before the first frame update
@@ -47,14 +50,31 @@ public class Player : MonoBehaviour
                 isFiring = true;
             }
 
-            if (isFiring)
+            if (isFiring && Time.time >= nextFire)
             {
-                GameObject laser = pools.GetActiveInPool(ObjectPool.PoolsName.LASER);
-                if (laser != null && Time.time >= nextFire)
+                if (isTripleShotActive)
                 {
-                    nextFire = Time.time + fireRate;
-                    laser.transform.position = transform.position + fireOffset;
-                    laser.SetActive(true);
+                    for (int i = 0; i < tripleLaserPrefab.transform.childCount; ++i)
+                    {
+                        Transform child = tripleLaserPrefab.transform.GetChild(i);
+                        GameObject laser = pools.GetActiveInPool(ObjectPool.PoolsName.LASER);
+                        if (laser != null)
+                        {
+                            nextFire = Time.time + fireRate;
+                            laser.transform.position = transform.position + child.position;
+                            laser.SetActive(true);
+                        }
+                    }
+                }
+                else
+                {
+                    GameObject laser = pools.GetActiveInPool(ObjectPool.PoolsName.LASER);
+                    if (laser != null)
+                    {
+                        nextFire = Time.time + fireRate;
+                        laser.transform.position = transform.position + fireOffset;
+                        laser.SetActive(true);
+                    }
                 }
             }
 

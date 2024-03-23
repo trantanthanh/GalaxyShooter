@@ -14,7 +14,8 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] int enemyPoolSize = 20;
 
-    public enum PoolsName { 
+    public enum PoolsName
+    {
         LASER,
         ENEMY
     }
