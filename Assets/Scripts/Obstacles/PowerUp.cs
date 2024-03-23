@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static PowerUp;
 
-public class PowerUp : Enemy
+public class PowerUp : Obstacle
 {
     public enum PowerUpOptions
     {
