@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float rightBoundPos = 7f;
     [SerializeField] float topBoundPos = 8f;
 
-    Player player;
+    protected Player player;
 
     // Start is called before the first frame update
     void Start()

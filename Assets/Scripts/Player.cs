@@ -21,7 +21,18 @@ public class Player : MonoBehaviour
     bool isMovingByMouse = false;
     bool isFiring = false;
 
-    bool isTripleShotActive = !false;
+    bool isTripleShotActive = false;
+    public bool IsTripleShotActive
+    {
+        get
+        {
+            return isTripleShotActive;
+        }
+        set
+        {
+            isTripleShotActive = value;
+        }
+    }
     [SerializeField] GameObject tripleLaserPrefab;
 
     ObjectPool pools;
