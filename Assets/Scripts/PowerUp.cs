@@ -11,7 +11,7 @@ public class PowerUp : Enemy
         if (other.gameObject.CompareTag("Player"))
         {
             gameObject.SetActive(false);//Collected powerup
-            player.IsTripleShotActive = true;
+            player.ActiveTripleShot();
         }
     }
 }
