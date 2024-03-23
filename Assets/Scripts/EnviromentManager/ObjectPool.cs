@@ -58,7 +58,6 @@ public class ObjectPool : MonoBehaviour
             return null;
         }
         int poolLimit = 0;
-        List<GameObject> pool = pools[name];
         GameObject prefab = null;
         switch (name)
         {
@@ -94,19 +93,19 @@ public class ObjectPool : MonoBehaviour
                 }
         }
 
-        for (int i = 0; i < pool.Count; i++)
+        for (int i = 0; i < pools[name].Count; i++)
         {
-            if (!pool[i].activeInHierarchy)
+            if (!pools[name][i].activeInHierarchy)
             {
-                return pool[i];
+                return pools[name][i];
             }
         }
 
-        if (pool.Count < poolLimit)
+        if (pools[name].Count < poolLimit)
         {
             GameObject obj = Instantiate(prefab, transform);
             obj.SetActive(false);
-            pool.Add(obj);
+            pools[name].Add(obj);
             return obj;
         }
 
