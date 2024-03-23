@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
         }
 
         Vector3 deltaMove;
-        if (isMovingByMouse && Input.GetMouseButton(0))
+        if (isMovingByMouse)
         {
             Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPosition.z = transform.position.z;//Keep position z
