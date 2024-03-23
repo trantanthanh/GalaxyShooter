@@ -33,6 +33,15 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void SpawnPowerUp()
+    {
+        GameObject powerUp = pools.GetActiveInPool(ObjectPool.PoolsName.POWER_UP);
+        if (powerUp != null)
+        {
+            powerUp.SetActive(true);
+        }
+    }
+
     public void OnPlayerDeath()
     {
         _stopSpawning = true;

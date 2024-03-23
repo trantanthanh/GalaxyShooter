@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     bool isMovingByMouse = false;
     bool isFiring = false;
 
+    [SerializeField] float timeSpentToSpawnPowerUp = 5f;
+    float nextSpawnPowerUp = 0f;
+
     bool isTripleShotActive = false;
     public bool IsTripleShotActive
     {
@@ -40,9 +43,16 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Init();
+
         transform.position = Vector3.zero;
         pools = FindObjectOfType<ObjectPool>();
         spawnManager = FindObjectOfType<SpawnManager>();
+    }
+
+    private void Init()
+    {
+        nextSpawnPowerUp = Time.time + timeSpentToSpawnPowerUp;
     }
 
     // Update is called once per frame
@@ -50,6 +60,16 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         Firing();
+        CheckSpawnPowerUp();
+    }
+
+    private void CheckSpawnPowerUp()
+    {
+        if (!isTripleShotActive && Time.time >= nextSpawnPowerUp)
+        {
+            nextSpawnPowerUp = Time.time + timeSpentToSpawnPowerUp;
+            spawnManager.SpawnPowerUp();
+        }
     }
 
     private void Firing()

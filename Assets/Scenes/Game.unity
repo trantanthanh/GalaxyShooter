@@ -511,6 +511,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7774943899377012699, guid: 918e469c3829efb4d9a36d8ce98b6699, type: 3}
+      propertyPath: powerUpPrefab
+      value: 
+      objectReference: {fileID: 1884736900068748721, guid: aa6a2afbabb248f439244a2222d02a51, type: 3}
+    - target: {fileID: 7774943899377012699, guid: 918e469c3829efb4d9a36d8ce98b6699, type: 3}
       propertyPath: tripleLaserPrefab
       value: 
       objectReference: {fileID: 564383485897636031, guid: ca7e4914e6d4eb84f9a022120c60db7d, type: 3}

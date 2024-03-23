@@ -14,9 +14,14 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] int enemyPoolSize = 20;
 
+    [Header("Power up Pool configuration")]
+    [SerializeField] GameObject powerUpPrefab;
+    [SerializeField] int powerUpPoolSize = 1;
+
     public enum PoolsName
     {
         LASER,
+        POWER_UP,
         ENEMY
     }
 
@@ -51,6 +56,12 @@ public class ObjectPool : MonoBehaviour
                 {
                     poolLimit = laserPoolSize;
                     prefab = laserPrefab;
+                    break;
+                }
+            case PoolsName.POWER_UP:
+                {
+                    poolLimit = powerUpPoolSize;
+                    prefab = powerUpPrefab;
                     break;
                 }
             case PoolsName.ENEMY:
