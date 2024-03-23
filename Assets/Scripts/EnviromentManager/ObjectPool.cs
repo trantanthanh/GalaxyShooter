@@ -14,14 +14,24 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] int enemyPoolSize = 20;
 
-    [Header("Power up Pool configuration")]
-    [SerializeField] GameObject powerUpPrefab;
-    [SerializeField] int powerUpPoolSize = 1;
+    [Header("Triple shot power up Pool configuration")]
+    [SerializeField] GameObject tripleShotPowerUpPrefab;
+    [SerializeField] int tripleShotPowerUpPoolSize = 1;
+
+    [Header("Speed power up Pool configuration")]
+    [SerializeField] GameObject speedPowerUpPrefab;
+    [SerializeField] int speedPowerUpPoolSize = 1;
+
+    [Header("Shield power up Pool configuration")]
+    [SerializeField] GameObject shieldPowerUpPrefab;
+    [SerializeField] int shieldPowerUpPoolSize = 1;
 
     public enum PoolsName
     {
         LASER,
-        POWER_UP,
+        TRIPLE_SHOT_POWER_UP,
+        SPEED_POWER_UP,
+        SHIELD_POWER_UP,
         ENEMY
     }
 
@@ -58,10 +68,22 @@ public class ObjectPool : MonoBehaviour
                     prefab = laserPrefab;
                     break;
                 }
-            case PoolsName.POWER_UP:
+            case PoolsName.TRIPLE_SHOT_POWER_UP:
                 {
-                    poolLimit = powerUpPoolSize;
-                    prefab = powerUpPrefab;
+                    poolLimit = tripleShotPowerUpPoolSize;
+                    prefab = tripleShotPowerUpPrefab;
+                    break;
+                }
+            case PoolsName.SPEED_POWER_UP:
+                {
+                    poolLimit = speedPowerUpPoolSize;
+                    prefab = speedPowerUpPrefab;
+                    break;
+                }
+            case PoolsName.SHIELD_POWER_UP:
+                {
+                    poolLimit = shieldPowerUpPoolSize;
+                    prefab = shieldPowerUpPrefab;
                     break;
                 }
             case PoolsName.ENEMY:

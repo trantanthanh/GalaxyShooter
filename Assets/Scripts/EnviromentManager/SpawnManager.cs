@@ -7,39 +7,101 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float spawnInterval = 3f;
     bool _stopSpawning = false;
 
-    [SerializeField] float timeSpentToSpawnPowerUp = 10f;
-    float nextSpawnPowerUp = 0f;
+    [SerializeField] float timeSpentToSpawnTripleShotPowerUp = 6f;
+    float nextSpawnTripleShotPowerUp = 0f;
+
+    [SerializeField] float timeSpentToSpawnSpeedPowerUp = 8f;
+    float nextSpawnSpeedPowerUp = 0f;
+
+    [SerializeField] float timeSpentToSpawnShieldPowerUp = 10f;
+    float nextSpawnShieldPowerUp = 0f;
 
     Player player;
     ObjectPool pools;
     // Start is called before the first frame update
     void Start()
     {
-        InitPowerUpTimeSpawn();
+        InitTimerPowerUp();
         pools = FindObjectOfType<ObjectPool>();
         player = FindObjectOfType<Player>();
         StartCoroutine(SpawnEnemy());
     }
 
-    public void InitPowerUpTimeSpawn()
+    void InitTimerPowerUp()
     {
-        nextSpawnPowerUp = Time.time + timeSpentToSpawnPowerUp;
+        InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.TRIPLE_SHOT);
+        InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.SPEED_UP);
+        InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.SHIELD);
+    }
+
+    public void InitPowerUpTimeSpawn(PowerUp.PowerUpOptions powerUpType)
+    {
+        switch (powerUpType)
+        {
+            case PowerUp.PowerUpOptions.TRIPLE_SHOT:
+                {
+                    nextSpawnTripleShotPowerUp = Time.time + timeSpentToSpawnTripleShotPowerUp;
+                    break;
+                }
+            case PowerUp.PowerUpOptions.SPEED_UP:
+                {
+                    nextSpawnSpeedPowerUp = Time.time + timeSpentToSpawnSpeedPowerUp;
+                    break;
+                }
+            case PowerUp.PowerUpOptions.SHIELD:
+                {
+                    nextSpawnShieldPowerUp = Time.time + timeSpentToSpawnShieldPowerUp;
+                    break;
+                }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckSpawnPowerUp();
+        CheckSpawnPowerUp(PowerUp.PowerUpOptions.TRIPLE_SHOT);
+        CheckSpawnPowerUp(PowerUp.PowerUpOptions.SPEED_UP);
+        CheckSpawnPowerUp(PowerUp.PowerUpOptions.SHIELD);
     }
 
-    private void CheckSpawnPowerUp()
+    private void CheckSpawnPowerUp(PowerUp.PowerUpOptions powerType)
     {
         if (_stopSpawning) return;
 
-        if (!player.IsTripleShotActive && Time.time >= nextSpawnPowerUp)
+        bool needSpawn = false;
+
+        switch (powerType)
         {
-            nextSpawnPowerUp = Time.time + timeSpentToSpawnPowerUp;
-            SpawnPowerUp();
+            case PowerUp.PowerUpOptions.TRIPLE_SHOT:
+                {
+                    if (!player.IsTripleShotActive && Time.time >= nextSpawnTripleShotPowerUp)
+                    {
+                        needSpawn = true;
+                    }
+                    break;
+                }
+            case PowerUp.PowerUpOptions.SPEED_UP:
+                {
+                    if (!player.IsSpeedUpActive && Time.time >= nextSpawnSpeedPowerUp)
+                    {
+                        needSpawn = true;
+                    }
+                    break;
+                }
+            case PowerUp.PowerUpOptions.SHIELD:
+                {
+                    if (!player.IsShieldActive && Time.time >= nextSpawnShieldPowerUp)
+                    {
+                        needSpawn = true;
+                    }
+                    break;
+                }
+        }
+
+        if (needSpawn)
+        {
+            InitPowerUpTimeSpawn(powerType);
+            SpawnPowerUp(powerType);
         }
     }
 
@@ -56,9 +118,28 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    void SpawnPowerUp()
+    void SpawnPowerUp(PowerUp.PowerUpOptions powerUpType)
     {
-        GameObject powerUp = pools.GetActiveInPool(ObjectPool.PoolsName.POWER_UP);
+        GameObject powerUp = null;
+        switch (powerUpType)
+        {
+            case PowerUp.PowerUpOptions.TRIPLE_SHOT:
+                {
+                    powerUp = pools.GetActiveInPool(ObjectPool.PoolsName.TRIPLE_SHOT_POWER_UP);
+                    break;
+                }
+            case PowerUp.PowerUpOptions.SPEED_UP:
+                {
+                    powerUp = pools.GetActiveInPool(ObjectPool.PoolsName.SPEED_POWER_UP);
+                    break;
+                }
+            case PowerUp.PowerUpOptions.SHIELD:
+                {
+                    powerUp = pools.GetActiveInPool(ObjectPool.PoolsName.SHIELD_POWER_UP);
+                    break;
+                }
+        }
+
         if (powerUp != null)
         {
             powerUp.SetActive(true);

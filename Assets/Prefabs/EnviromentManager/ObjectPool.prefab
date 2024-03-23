@@ -45,4 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 6655693442718799856, guid: e31a849d707022a40b8b1223100b04a7, type: 3}
-  laserPoolSize: 5
+  laserPoolSize: 15
+  enemyPrefab: {fileID: 4705968908113251417, guid: 79f82d943455ded4d9ccb1ebdb73dfc0, type: 3}
+  enemyPoolSize: 20
+  tripleShotPowerUpPrefab: {fileID: 0}
+  tripleShotPowerUpPoolSize: 1
+  speedPowerUpPrefab: {fileID: 5174310487647340806, guid: 0dac49fcc0cb102438234b7daf2cbb8e, type: 3}
+  speedPowerUpPoolSize: 1
+  shieldPowerUpPrefab: {fileID: 0}
+  shieldPowerUpPoolSize: 1

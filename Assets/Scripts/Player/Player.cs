@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float speedMove = 10f;
+    [SerializeField] float speedPowerUpMove = 20;
     [SerializeField] float fireRate = 0.5f;
     float nextFire = 0.0f;
     [SerializeField] Vector3 fireOffset;
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     bool isFiring = false;
 
     bool isTripleShotActive = false;
-    [SerializeField] float timerPowerUpEffect = 5f;
+    [SerializeField] float timerTripleShotEffect = 3f;
     public bool IsTripleShotActive
     {
         get
@@ -30,7 +31,28 @@ public class Player : MonoBehaviour
             return isTripleShotActive;
         }
     }
-    [SerializeField] float timePowerupEffect = 3f;
+
+    bool isSpeedUpActive = false;
+    [SerializeField] float timerSpeedUpEffect = 4f;
+    public bool IsSpeedUpActive
+    {
+        get
+        {
+            return isSpeedUpActive;
+        }
+    }
+
+    bool isShieldActive = false;
+    [SerializeField] float timerShieldEffect = 5f;
+    public bool IsShieldActive
+    {
+        get
+        {
+            return isShieldActive;
+        }
+    }
+
+    [SerializeField] GameObject shieldPrefab;
     [SerializeField] GameObject tripleLaserPrefab;
 
     ObjectPool pools;
@@ -38,6 +60,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shieldPrefab.SetActive(false);
         transform.position = Vector3.zero;
         pools = FindObjectOfType<ObjectPool>();
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -110,7 +133,7 @@ public class Player : MonoBehaviour
             //transform.Translate(Vector3.right * horizontalInput * speedMove * Time.deltaTime);
             //transform.Translate(Vector3.up * verticalInput * speedMove * Time.deltaTime);
             Vector3 direction = new Vector3(horizontalInput, verticalInput, transform.position.z);
-            transform.Translate(direction * speedMove * Time.deltaTime);
+            transform.Translate(direction * (isSpeedUpActive ? speedPowerUpMove : speedMove) * Time.deltaTime);
 
         }
 
@@ -121,7 +144,7 @@ public class Player : MonoBehaviour
             targetPosition.z = transform.position.z;//Keep position z
             Vector3 moveDistance = targetPosition - transform.position;
             Vector3 moveDirection = moveDistance.normalized;
-            deltaMove = moveDirection * speedMove * Time.deltaTime;
+            deltaMove = moveDirection * (isSpeedUpActive ? speedPowerUpMove : speedMove) * Time.deltaTime;
             if (deltaMove.magnitude > moveDistance.magnitude)
             {
                 deltaMove = moveDistance;
@@ -151,6 +174,7 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (isShieldActive) return;
         --lives;
         if (lives < 1)
         {
@@ -172,8 +196,36 @@ public class Player : MonoBehaviour
 
     IEnumerator CountDownDeactiveTripleShot()
     {
-        yield return new WaitForSeconds(timerPowerUpEffect);
-        spawnManager.InitPowerUpTimeSpawn();
+        yield return new WaitForSeconds(timerTripleShotEffect);
+        spawnManager.InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.TRIPLE_SHOT);
         isTripleShotActive = false;
+    }
+
+    public void ActiveSpeedUp()
+    {
+        isSpeedUpActive = true;
+        StartCoroutine(CountDownDeactiveSpeedUp());
+    }
+
+    IEnumerator CountDownDeactiveSpeedUp()
+    {
+        yield return new WaitForSeconds(timerSpeedUpEffect);
+        spawnManager.InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.SPEED_UP);
+        isSpeedUpActive = false;
+    }
+
+    public void ActiveShield()
+    {
+        isShieldActive = true;
+        shieldPrefab.SetActive(true);
+        StartCoroutine(CountDownDeactiveShield());
+    }
+
+    IEnumerator CountDownDeactiveShield()
+    {
+        yield return new WaitForSeconds(timerShieldEffect);
+        spawnManager.InitPowerUpTimeSpawn(PowerUp.PowerUpOptions.SHIELD);
+        isShieldActive = false;
+        shieldPrefab.SetActive(false);
     }
 }
