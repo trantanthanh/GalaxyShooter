@@ -9,10 +9,12 @@ public class Laser : MonoBehaviour
     [SerializeField] float speed = 30f;
     [SerializeField] float topBound = 8f;
     [SerializeField] float bottomBound = -8f;
+
+    UIManager uiManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,10 @@ public class Laser : MonoBehaviour
         {
             gameObject.SetActive(false);
             other.gameObject.SetActive(false);
+            if (uiManager != null)
+            {
+                uiManager.AddScore(other.gameObject.GetComponent<Enemy>().Score);
+            }
         }
     }
 }

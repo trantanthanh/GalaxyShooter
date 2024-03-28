@@ -11,6 +11,8 @@ public class Obstacle : MonoBehaviour
     [SerializeField] float leftBoundPos = -7f;
     [SerializeField] float rightBoundPos = 7f;
     [SerializeField] float topBoundPos = 8f;
+    [SerializeField] int score = 0;
+    public int Score { get { return score; } set { score = value; } }
 
     protected Player player;
 

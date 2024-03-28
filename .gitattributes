@@ -1,3 +1,4 @@
 2D-Galaxy-Assets.zip filter=lfs diff=lfs merge=lfs -text
 music_background.wav filter=lfs diff=lfs merge=lfs -text
 SpaceBG_Overlay.png filter=lfs diff=lfs merge=lfs -text
+LiberationSans[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
