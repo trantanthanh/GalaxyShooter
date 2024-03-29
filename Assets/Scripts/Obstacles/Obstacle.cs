@@ -14,12 +14,16 @@ public class Obstacle : MonoBehaviour
     [SerializeField] int score = 0;
     public int Score { get { return score; } set { score = value; } }
 
-    protected Player player;
+    static protected Player player;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        if (player == null)
+        {
+            player = FindObjectOfType<Player>();
+            //Debug.Log("Find player object");
+        }
     }
 
     void OnEnable()
