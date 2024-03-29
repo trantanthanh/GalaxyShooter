@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     float nextFire = 0.0f;
     [SerializeField] Vector3 fireOffset;
     [SerializeField] int lives = 3;
+    int currentLives = 3;
 
     [Header("Boundary")]
     [SerializeField] float paddingTop;
@@ -57,13 +58,17 @@ public class Player : MonoBehaviour
 
     ObjectPool pools;
     SpawnManager spawnManager;
+    UIManager uiManager;
     // Start is called before the first frame update
     void Start()
     {
+        currentLives = lives;
         shieldPrefab.SetActive(false);
         transform.position = Vector3.zero;
         pools = FindObjectOfType<ObjectPool>();
         spawnManager = FindObjectOfType<SpawnManager>();
+        uiManager = FindObjectOfType<UIManager>();
+        uiManager.UpdateLives(currentLives);
     }
 
     // Update is called once per frame
@@ -175,8 +180,9 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         if (isShieldActive) return;
-        --lives;
-        if (lives < 1)
+        --currentLives;
+        uiManager.UpdateLives(currentLives);
+        if (currentLives < 1)
         {
             Death();
         }
