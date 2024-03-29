@@ -14,9 +14,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI textGameOver;
     [SerializeField] TextMeshProUGUI textRestartGame;
     [SerializeField] float timerFlickTextGameOver = 0.5f;
+
+    GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         ShowGameOver(false);
         currentScore = 0;
         AddScore(0);
@@ -39,6 +42,7 @@ public class UIManager : MonoBehaviour
         textRestartGame.enabled = isShow;
         if (isShow)
         {
+            gameManager.IsGameOver = true;
             StartCoroutine(FlickTextGameOver());
         }
     }
