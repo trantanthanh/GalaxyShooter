@@ -11,9 +11,11 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Image livesImage;
     [SerializeField] Sprite[] livesSprites;
+    [SerializeField] TextMeshProUGUI textGameOver;
     // Start is called before the first frame update
     void Start()
     {
+        ShowGameOver(false);
         currentScore = 0;
         AddScore(0);
     }
@@ -27,6 +29,11 @@ public class UIManager : MonoBehaviour
     public void UpdateLives(int currentLives)
     {
         livesImage.sprite = livesSprites[currentLives];
+    }
+
+    public void ShowGameOver(bool isShow)
+    {
+        textGameOver.enabled = isShow;
     }
 
     public void AddScore(int score)

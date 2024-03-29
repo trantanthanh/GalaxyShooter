@@ -184,6 +184,7 @@ public class Player : MonoBehaviour
         uiManager.UpdateLives(currentLives);
         if (currentLives < 1)
         {
+            uiManager.ShowGameOver(true);
             Death();
         }
     }
