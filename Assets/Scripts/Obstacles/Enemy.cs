@@ -12,7 +12,8 @@ public class Enemy : Obstacle
         if (IsDestroyed) return;
         if (other.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroyed();
             if (player != null)
             {
                 player.Damage();

@@ -62,9 +62,13 @@ public class Obstacle : MonoBehaviour
 
     private void MovingDown()
     {
+        if (isDestroyed)
+        {
+            return;
+        }
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < -4f)
+        if (transform.position.y < -8f)
         {
             gameObject.SetActive(false);
         }
