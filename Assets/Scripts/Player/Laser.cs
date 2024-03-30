@@ -10,11 +10,9 @@ public class Laser : MonoBehaviour
     [SerializeField] float topBound = 8f;
     [SerializeField] float bottomBound = -8f;
 
-    UIManager uiManager;
     // Start is called before the first frame update
     void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();
     }
 
     // Update is called once per frame
@@ -26,7 +24,7 @@ public class Laser : MonoBehaviour
 
     private void CheckBound()
     {
-        if (transform.position.y > topBound || transform.position.y < bottomBound) 
+        if (transform.position.y > topBound || transform.position.y < bottomBound)
         {
             gameObject.SetActive(false);
         }
@@ -35,18 +33,5 @@ public class Laser : MonoBehaviour
     private void Moving()
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            gameObject.SetActive(false);
-            other.gameObject.SetActive(false);
-            if (uiManager != null)
-            {
-                uiManager.AddScore(other.gameObject.GetComponent<Enemy>().Score);
-            }
-        }
     }
 }

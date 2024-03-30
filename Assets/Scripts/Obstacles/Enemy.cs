@@ -9,6 +9,7 @@ public class Enemy : Obstacle
 {
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (IsDestroyed) return;
         if (other.CompareTag("Player"))
         {
             gameObject.SetActive(false);
@@ -16,6 +17,12 @@ public class Enemy : Obstacle
             {
                 player.Damage();
             }
+        }
+        else if (other.gameObject.CompareTag("Laser"))
+        {
+            other.gameObject.SetActive(false);
+            Destroyed();
+            uiManager.AddScore(Score);
         }
     }
 }

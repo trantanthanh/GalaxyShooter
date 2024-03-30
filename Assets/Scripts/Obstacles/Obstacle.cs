@@ -14,7 +14,14 @@ public class Obstacle : MonoBehaviour
     [SerializeField] int score = 0;
     public int Score { get { return score; } set { score = value; } }
 
+    [SerializeField] float timeDelayDeactive = 2.30f;
+    bool isDestroyed = false;
+    public bool IsDestroyed { get { return isDestroyed; } set { isDestroyed = value; } }
+
     static protected Player player;
+    static protected UIManager uiManager;
+
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +31,18 @@ public class Obstacle : MonoBehaviour
             player = FindObjectOfType<Player>();
             //Debug.Log("Find player object");
         }
+
+        if (uiManager == null)
+        {
+            uiManager = FindObjectOfType<UIManager>();
+        }
+
+        animator = GetComponent<Animator>();
     }
 
     void OnEnable()
     {
+        isDestroyed = false;
         RandomPosSpawn();
     }
 
@@ -50,5 +65,18 @@ public class Obstacle : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void Destroyed()
+    {
+        //animator.ResetTrigger("OnEnemyDeath");
+        animator.SetTrigger("OnEnemyDeath");
+        isDestroyed = true;
+        Invoke("DelayDeactive", timeDelayDeactive);
+    }
+
+    private void DelayDeactive()
+    {
+        gameObject.SetActive(false);
     }
 }
