@@ -25,4 +25,17 @@ public class Enemy : Obstacle
             uiManager.AddScore(Score);
         }
     }
+
+    public void Destroyed()
+    {
+        animator.ResetTrigger("OnEnemyDeath");
+        animator.SetTrigger("OnEnemyDeath");
+        IsDestroyed = true;
+        Invoke("DelayDeactive", timeDelayDeactive);
+    }
+
+    private void DelayDeactive()
+    {
+        gameObject.SetActive(false);
+    }
 }
