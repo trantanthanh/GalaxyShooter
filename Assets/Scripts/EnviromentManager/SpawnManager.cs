@@ -7,6 +7,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float spawnInterval = 3f;
     bool _stopSpawning = false;
 
+    [SerializeField] float spawnAsteroidInterval = 10f;
+
     [SerializeField] float timeSpentToSpawnTripleShotPowerUp = 6f;
     float nextSpawnTripleShotPowerUp = 0f;
 
@@ -25,6 +27,7 @@ public class SpawnManager : MonoBehaviour
         pools = FindObjectOfType<ObjectPool>();
         player = FindObjectOfType<Player>();
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnAsteroid());
     }
 
     void InitTimerPowerUp()
@@ -115,6 +118,19 @@ public class SpawnManager : MonoBehaviour
                 enemy.SetActive(true);
             }
             yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    IEnumerator SpawnAsteroid()
+    {
+        while (!_stopSpawning)
+        {
+            GameObject asteroid = pools.GetActiveInPool(ObjectPool.PoolsName.ASTEROID);
+            if (asteroid != null)
+            {
+                asteroid.SetActive(true);
+            }
+            yield return new WaitForSeconds(spawnAsteroidInterval);
         }
     }
 

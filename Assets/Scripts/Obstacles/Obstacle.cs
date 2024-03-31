@@ -12,6 +12,10 @@ public class Obstacle : MonoBehaviour
     [SerializeField] float rightBoundPos = 7f;
     [SerializeField] float topBoundPos = 8f;
     [SerializeField] int score = 0;
+    [SerializeField] int HP = 3;
+
+    private int currentHP = 3;
+    public int CurrentHP { get { return currentHP; } set { currentHP = value; } }
     public int Score { get { return score; } set { score = value; } }
 
     [SerializeField] protected float timeDelayDeactive = 2.30f;
@@ -41,6 +45,7 @@ public class Obstacle : MonoBehaviour
     }
     void OnEnable()
     {
+        currentHP = HP;
         isDestroyed = false;
         RandomPosSpawn();
         if (animator != null)

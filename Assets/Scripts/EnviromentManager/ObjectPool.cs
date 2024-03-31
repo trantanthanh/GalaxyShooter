@@ -26,13 +26,18 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject shieldPowerUpPrefab;
     [SerializeField] int shieldPowerUpPoolSize = 1;
 
+    [Header("Asteroid Pool configuration")]
+    [SerializeField] GameObject asteroidPrefab;
+    [SerializeField] int asteroidPoolSize = 2;
+
     public enum PoolsName
     {
         LASER,
         TRIPLE_SHOT_POWER_UP,
         SPEED_POWER_UP,
         SHIELD_POWER_UP,
-        ENEMY
+        ENEMY,
+        ASTEROID
     }
 
     Dictionary<PoolsName, List<GameObject>> pools = new Dictionary<PoolsName, List<GameObject>>();
@@ -89,6 +94,12 @@ public class ObjectPool : MonoBehaviour
                 {
                     poolLimit = enemyPoolSize;
                     prefab = enemyPrefab;
+                    break;
+                }
+            case PoolsName.ASTEROID:
+                {
+                    poolLimit = asteroidPoolSize;
+                    prefab = asteroidPrefab;
                     break;
                 }
         }

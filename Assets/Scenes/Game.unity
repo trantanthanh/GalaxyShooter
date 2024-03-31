@@ -1224,6 +1224,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7774943899377012699, guid: 918e469c3829efb4d9a36d8ce98b6699, type: 3}
+      propertyPath: asteroidPrefab
+      value: 
+      objectReference: {fileID: 5758750589691873726, guid: d8b8050d435924644b9179a550e742fe, type: 3}
+    - target: {fileID: 7774943899377012699, guid: 918e469c3829efb4d9a36d8ce98b6699, type: 3}
       propertyPath: shieldPowerUpPrefab
       value: 
       objectReference: {fileID: 5726304553670225534, guid: 8fdcf422c6f552e40b27255f00c36e3b, type: 3}
