@@ -100,10 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04642c2274170a44fa437db0cb686665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   leftBoundPos: -7
   rightBoundPos: 7
   topBoundPos: 8
+  score: 0
+  HP: 3
+  timeDelayDeactive: 2.3
   powerUpOption: 1
 --- !u!61 &7193359967113798823
 BoxCollider2D:

@@ -77,6 +77,7 @@ public class Obstacle : MonoBehaviour
         {
             return;
         }
+
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
         if (transform.position.y < -8f)

@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6b55a2bf8670744bd26beee1b9ee7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 1.5
   leftBoundPos: -7
   rightBoundPos: 7
   topBoundPos: 8
