@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 fireOffset;
     [SerializeField] int lives = 3;
     int currentLives = 3;
+    [SerializeField] GameObject fileLeftPrefab;
+    [SerializeField] GameObject fileRightPrefab;
 
     [Header("Boundary")]
     [SerializeField] float paddingTop;
@@ -69,6 +71,8 @@ public class Player : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
         uiManager = FindObjectOfType<UIManager>();
         uiManager.UpdateLives(currentLives);
+        fileLeftPrefab.SetActive(false);
+        fileRightPrefab.SetActive(false);
     }
 
     // Update is called once per frame
@@ -182,6 +186,8 @@ public class Player : MonoBehaviour
         if (isShieldActive) return;
         --currentLives;
         uiManager.UpdateLives(currentLives);
+        fileRightPrefab.SetActive(currentLives < 3 ? true : false);
+        fileLeftPrefab.SetActive(currentLives < 2 ? true : false);
         if (currentLives < 1)
         {
             uiManager.ShowGameOver(true);
