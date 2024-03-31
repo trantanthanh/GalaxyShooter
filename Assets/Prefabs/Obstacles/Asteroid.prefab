@@ -167,7 +167,7 @@ MonoBehaviour:
   rightBoundPos: 7
   topBoundPos: 8
   score: 50
-  HP: 10
+  HP: 5
   timeDelayDeactive: 2.3
 --- !u!114 &-19891410398112409
 MonoBehaviour:

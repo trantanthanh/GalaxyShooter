@@ -21,10 +21,10 @@ public class Enemy : Obstacle
         }
         else if (other.gameObject.CompareTag("Laser"))
         {
+            other.gameObject.SetActive(false);
             --CurrentHP;
             if (CurrentHP < 1)
             {
-                other.gameObject.SetActive(false);
                 Destroyed();
                 uiManager.AddScore(Score);
             }

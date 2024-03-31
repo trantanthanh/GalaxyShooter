@@ -24,6 +24,7 @@ public class Obstacle : MonoBehaviour
 
     static protected Player player;
     static protected UIManager uiManager;
+    static protected SpawnManager spawnManager;
 
     protected Animator animator;
 
@@ -39,6 +40,11 @@ public class Obstacle : MonoBehaviour
         if (uiManager == null)
         {
             uiManager = FindObjectOfType<UIManager>();
+        }
+
+        if (spawnManager == null)
+        {
+            spawnManager = FindObjectOfType<SpawnManager>();
         }
 
         animator = GetComponent<Animator>();

@@ -18,10 +18,10 @@ public class Asteroid : Obstacle
         }
         else if (other.gameObject.CompareTag("Laser"))
         {
+            other.gameObject.SetActive(false);
             --CurrentHP;
             if (CurrentHP < 1)
             {
-                other.gameObject.SetActive(false);
                 Destroyed();
                 uiManager.AddScore(Score);
             }
@@ -32,5 +32,6 @@ public class Asteroid : Obstacle
     {
         IsDestroyed = true;
         gameObject.SetActive(false);
+        spawnManager.SpawnExplosionFx(transform.position);
     }
 }

@@ -134,6 +134,16 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void SpawnExplosionFx(Vector3 position)
+    {
+        GameObject explosion = pools.GetActiveInPool(ObjectPool.PoolsName.EXPLOSION_FX);
+        if (explosion != null)
+        {
+            explosion.transform.position = position;
+            explosion.SetActive(true);
+        }
+    }
+
     void SpawnPowerUp(PowerUp.PowerUpOptions powerUpType)
     {
         GameObject powerUp = null;
