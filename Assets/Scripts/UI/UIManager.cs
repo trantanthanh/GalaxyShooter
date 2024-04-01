@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Sprite[] livesSprites;
     [SerializeField] TextMeshProUGUI textGameOver;
     [SerializeField] TextMeshProUGUI textRestartGame;
+    [SerializeField] GameObject buttonRestart;
     [SerializeField] float timerFlickTextGameOver = 0.5f;
 
     GameManager gameManager;
@@ -40,6 +41,7 @@ public class UIManager : MonoBehaviour
     {
         textGameOver.enabled = isShow;
         textRestartGame.enabled = isShow;
+        buttonRestart.SetActive(isShow);
         if (isShow)
         {
             gameManager.IsGameOver = true;
