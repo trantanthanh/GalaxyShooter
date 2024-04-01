@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   speedMultiplier: 2
-  fireRate: 0.8
+  fireRate: 0.3
   fireOffset: {x: 0, y: 1, z: 0}
   lives: 3
   fileLeftPrefab: {fileID: 2000123408797074529}
@@ -119,6 +119,8 @@ MonoBehaviour:
   timerShieldEffect: 5
   shieldPrefab: {fileID: 6342012549035347154}
   tripleLaserPrefab: {fileID: 564383485897636031, guid: ca7e4914e6d4eb84f9a022120c60db7d, type: 3}
+  laserSound: {fileID: 0}
+  powerUpSound: {fileID: 0}
 --- !u!61 &-5035092980530869901
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ public class Asteroid : Obstacle
 
     public void Destroyed()
     {
+        PlaySoundDestroyed();
         IsDestroyed = true;
         gameObject.SetActive(false);
         spawnManager.SpawnExplosionFx(transform.position);

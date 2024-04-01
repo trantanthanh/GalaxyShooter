@@ -33,6 +33,7 @@ public class Enemy : Obstacle
 
     public void Destroyed()
     {
+        PlaySoundDestroyed();
         animator.ResetTrigger("OnEnemyDeath");
         animator.SetTrigger("OnEnemyDeath");
         IsDestroyed = true;

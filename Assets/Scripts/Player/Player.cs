@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
@@ -58,6 +59,11 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject shieldPrefab;
     [SerializeField] GameObject tripleLaserPrefab;
 
+    [SerializeField] AudioClip laserSound;
+    [SerializeField] AudioClip powerUpSound;
+    [SerializeField] AudioClip destroyedSound;
+    AudioSource audioSource;
+
     ObjectPool pools;
     SpawnManager spawnManager;
     UIManager uiManager;
@@ -71,6 +77,9 @@ public class Player : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
         uiManager = FindObjectOfType<UIManager>();
         uiManager.UpdateLives(currentLives);
+
+        audioSource = GetComponent<AudioSource>();
+
         fileLeftPrefab.SetActive(false);
         fileRightPrefab.SetActive(false);
     }
@@ -104,6 +113,8 @@ public class Player : MonoBehaviour
                             nextFire = Time.time + fireRate;
                             laser.transform.position = transform.position + child.position;
                             laser.SetActive(true);
+                            audioSource.PlayOneShot(laserSound);
+
                         }
                     }
                 }
@@ -115,6 +126,7 @@ public class Player : MonoBehaviour
                         nextFire = Time.time + fireRate;
                         laser.transform.position = transform.position + fireOffset;
                         laser.SetActive(true);
+                        audioSource.PlayOneShot(laserSound);
                     }
                 }
             }
@@ -197,12 +209,15 @@ public class Player : MonoBehaviour
 
     private void Death()
     {
+        audioSource.PlayOneShot(destroyedSound);
+        spawnManager.SpawnExplosionFx(transform.position);
         spawnManager.OnPlayerDeath();
         Destroy(gameObject);
     }
 
     public void ActiveTripleShot()
     {
+        PlaySoundPowerUp();
         isTripleShotActive = true;
         StartCoroutine(CountDownDeactiveTripleShot());
     }
@@ -216,6 +231,7 @@ public class Player : MonoBehaviour
 
     public void ActiveSpeedUp()
     {
+        PlaySoundPowerUp();
         isSpeedUpActive = true;
         speed *= speedMultiplier;
         StartCoroutine(CountDownDeactiveSpeedUp());
@@ -231,9 +247,15 @@ public class Player : MonoBehaviour
 
     public void ActiveShield()
     {
+        PlaySoundPowerUp();
         isShieldActive = true;
         shieldPrefab.SetActive(true);
         StartCoroutine(CountDownDeactiveShield());
+    }
+
+    void PlaySoundPowerUp()
+    {
+        audioSource.PlayOneShot(powerUpSound);
     }
 
     IEnumerator CountDownDeactiveShield()

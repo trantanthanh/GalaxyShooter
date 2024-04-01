@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(AudioSource))]
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] float speed = 4f;
@@ -25,6 +26,8 @@ public class Obstacle : MonoBehaviour
     static protected Player player;
     static protected UIManager uiManager;
     static protected SpawnManager spawnManager;
+    static protected AudioSource audioSource;
+    [SerializeField] AudioClip destroyedSound;
 
     protected Animator animator;
 
@@ -45,6 +48,11 @@ public class Obstacle : MonoBehaviour
         if (spawnManager == null)
         {
             spawnManager = FindObjectOfType<SpawnManager>();
+        }
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
         }
 
         animator = GetComponent<Animator>();
@@ -84,5 +92,10 @@ public class Obstacle : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    protected void PlaySoundDestroyed()
+    {
+        audioSource.PlayOneShot(destroyedSound);
     }
 }

@@ -169,6 +169,7 @@ MonoBehaviour:
   score: 50
   HP: 5
   timeDelayDeactive: 2.3
+  destroyedSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
 --- !u!114 &-19891410398112409
 MonoBehaviour:
   m_ObjectHideFlags: 0
